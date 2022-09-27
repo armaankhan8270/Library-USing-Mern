@@ -22,7 +22,6 @@ const BookSchema = new mongoose.Schema(
     price: {
       type: Number,
       required: true,
-      unique: true,
     },
     img: {
       type: String,
@@ -33,6 +32,14 @@ const BookSchema = new mongoose.Schema(
       type: String,
       required: true,
       unique: true,
+    },
+    language: {
+      type: String,
+      required: true,
+    },
+    type: {
+      type: String,
+      required: true,
     },
   },
   { timestamps: true }
