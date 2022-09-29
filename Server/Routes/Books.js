@@ -1,5 +1,11 @@
 import express from "express";
-import { AllBooks, UploadBook, UploadBookcv } from "../Controllers/Books.js";
+import {
+  AllBooks,
+  AllJsonBooks,
+  GetBooks,
+  JsonBooks,
+  UploadBook,
+} from "../Controllers/Books.js";
 
 const router = express.Router();
 //Checking Route
@@ -8,7 +14,9 @@ const router = express.Router();
 // });
 
 router.post("/upload", UploadBook);
-router.post("/uploadcv", UploadBookcv);
-router.get("/", AllBooks);
+router.get("/", GetBooks);
+// router.get("/:id", JsonBooks);
+router.get("/cv", AllBooks);
+router.get("/json", AllJsonBooks);
 
 export default router;

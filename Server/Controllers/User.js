@@ -2,29 +2,39 @@ import LUser from "../Models/User.js";
 import bcrypt from "bcryptjs";
 export const Register = async (req, res, next) => {
   const salt = bcrypt.genSaltSync(10);
-  const hash = bcrypt.hashSync(req.body.username, salt);
+  const hash = bcrypt.hashSync(req.body.password, salt);
   try {
     const newUser = new LUser({
       username: req.body.username,
       email: req.body.email,
       password: hash,
     });
-    res.json(newUser);
-  } catch (error) {
-    next(error);
+    await newUser.save();
+    res.send(req.body);
+  } catch (err) {
+    next(err.message);
   }
 };
+
 export const Login = async (req, res, next) => {
   try {
-    const Username = await LUser.find({ username: req.body.username });
-    if (!Username)
-      return res.json("Username Not Found If You Are New Please Signin");
+    const user = await LUser.findOne({ username: req.body.username });
+    if (!user) return next("User not found!Pleae Check Your Username");
 
-    const password = await LUser.find({ password: req.body.password });
-    if (!password) return res.json("pasword is incorrect");
+    const isPasswordCorrect = await bcrypt.compare(
+      req.body.password,
+      user.password
+    );
+    console.log(user.password + req.body.password);
+    if (!isPasswordCorrect)
+      return next(
+        "Wrong password or username!If You Are New Please SignUp first"
+      );
+    const { password, username } = user;
 
-    res.json("Welcome To Our Website");
-  } catch (error) {
-    next(error);
+    res.json("welcome" + " " + req.body.username);
+  } catch (err) {
+    next(err.message);
+    console.log(err.message);
   }
 };
