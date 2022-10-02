@@ -4,6 +4,7 @@ import {
   AllJsonBooks,
   GetBooks,
   JsonBooks,
+  SearchJsonBooks,
   UploadBook,
 } from "../Controllers/Books.js";
 
@@ -15,8 +16,9 @@ const router = express.Router();
 
 router.post("/upload", UploadBook);
 router.get("/", GetBooks);
-// router.get("/:id", JsonBooks);
+router.get("/getby/:id", JsonBooks);
 router.get("/cv", AllBooks);
 router.get("/json", AllJsonBooks);
+router.get("/search", SearchJsonBooks);
 
 export default router;

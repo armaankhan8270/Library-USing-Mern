@@ -1,7 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { GlobalUserContext } from "../context/user";
 
 const Navbar = () => {
+  // const { id } = GlobalUserContext();
   return (
     <div className="font-serif">
       <header class="text-gray-100 body-font rounded">
@@ -40,6 +42,12 @@ const Navbar = () => {
               Books
             </Link>
             <Link to="/search" class="mr-5 hover:text-gray-900">
+              SearchBook
+            </Link>
+            <Link
+              to={`/books/63351641f87b88d5376adef6`}
+              class="mr-5 hover:text-gray-900"
+            >
               SearchBook
             </Link>
           </nav>

@@ -1,17 +1,30 @@
 import axios from "axios";
 import React, { useState } from "react";
+import AllBooks from "./AllBooks";
 
 const CreatePost = () => {
-  const [username, setusername] = useState("");
-  const [photo, setphoto] = useState("");
-  const [categories, setcategories] = useState("");
-  const [desc, setdesc] = useState("");
   const [title, settitle] = useState("");
+  const [author, setauthor] = useState("");
+  const [year, setyear] = useState();
+  const [price, setprice] = useState();
+  const [pages, setpages] = useState("");
+  const [imageLink, setimageLink] = useState("");
+  const [language, setlanguage] = useState("");
+  const [quote, setquote] = useState("");
   const [After, setAfter] = useState(false);
   const UploadBlog = async (e) => {
     e.preventDefault();
-    const url = "http://localhost:3001/post/create";
-    const BlogDatas = { username, photo, categories, desc, title };
+    const url = "http://localhost:3001/book/upload";
+    const BlogDatas = {
+      title,
+      author,
+      year,
+      // price,
+      pages,
+      imageLink,
+      language,
+      quote,
+    };
     await axios
       .post(url, BlogDatas)
       .then((e) => {
@@ -20,7 +33,7 @@ const CreatePost = () => {
         setAfter(true);
       })
       .catch((e) => {
-        console.log(e);
+        console.log(e.response.data);
         alert(e);
       });
   };
@@ -39,7 +52,9 @@ const CreatePost = () => {
                   value={title}
                   onChange={(e) => settitle(e.target.value)}
                   type="text"
+                  placeholder="title"
                   class="form-control block
+                  
         w-full
         px-3
         py-1.5
@@ -54,13 +69,10 @@ const CreatePost = () => {
         m-0
         focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                   id="exampleInput7"
-                  placeholder="Title"
                 />
               </div>
               <div class="form-group mb-6">
                 <input
-                  value={username}
-                  onChange={(e) => setusername(e.target.value)}
                   type="text"
                   class="form-control block
         w-full
@@ -77,13 +89,13 @@ const CreatePost = () => {
         m-0
         focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                   id="exampleInput8"
-                  placeholder="username"
+                  placeholder="author"
+                  value={author}
+                  onChange={(e) => setauthor(e.target.value)}
                 />
               </div>
               <div class="form-group mb-6">
                 <input
-                  value={categories}
-                  onChange={(e) => setcategories(e.target.value)}
                   type="text"
                   class="form-control block
         w-full
@@ -100,17 +112,15 @@ const CreatePost = () => {
         m-0
         focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                   id="exampleInput8"
-                  placeholder="Categoriy"
+                  placeholder="quote"
+                  value={quote}
+                  onChange={(e) => setquote(e.target.value)}
                 />
               </div>
               <div class="form-group mb-6">
-                <textarea
-                  required
-                  value={desc}
-                  onChange={(e) => setdesc(e.target.value)}
-                  class="
-        form-control
-        block
+                <input
+                  type="text"
+                  class="form-control block
         w-full
         px-3
         py-1.5
@@ -123,13 +133,74 @@ const CreatePost = () => {
         transition
         ease-in-out
         m-0
-        focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
-      "
-                  id="exampleFormControlTextarea13"
-                  rows="3"
-                  placeholder="Descrition"
-                ></textarea>
+        focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                  id="exampleInput8"
+                  placeholder="Year"
+                  value={year}
+                  onChange={(e) => setyear(e.target.value)}
+                />
               </div>
+              <div class="form-group mb-6">
+                <input
+                  type="text"
+                  class="form-control block
+        w-full
+        px-3
+        py-1.5
+        text-base
+        font-normal
+        text-gray-700
+        bg-white bg-clip-padding
+        border border-solid border-gray-300
+        rounded
+        transition
+        ease-in-out
+        m-0
+        focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                  id="exampleInput8"
+                  placeholder="languaage"
+                  value={language}
+                  onChange={(e) => setlanguage(e.target.value)}
+                />
+              </div>
+              <div class="form-group mb-6">
+                <input
+                  type="text"
+                  class="form-control block
+        w-full
+        px-3
+        py-1.5
+        text-base
+        font-normal
+        text-gray-700
+        bg-white bg-clip-padding
+        border border-solid border-gray-300
+        rounded
+        transition
+        ease-in-out
+        m-0
+        focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                  id="exampleInput8"
+                  placeholder="pages"
+                  value={pages}
+                  onChange={(e) => setpages(e.target.value)}
+                />
+              </div>
+              <div class="form-group mb-6">
+                <input
+                  type="text"
+                  class="form-control block w-full px-3 py-1.5 text-base font-normal  text-gray-700  bg-white bg-clip-padding   border border-solid border-gray-300
+        rounded
+        transition
+        ease-in-out
+        m-0
+        focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                  id="exampleInput8"
+                  placeholder="price"
+                  onChange={(e) => setprice(e.target.value)}
+                />
+              </div>
+              <div class="form-group mb-6"></div>
 
               <div class="flex justify-center items-center w-full">
                 <label
@@ -161,11 +232,9 @@ const CreatePost = () => {
                     </p>
                   </div>
                   <input
-                    onChange={(e) => {
-                      setphoto(e.target.value);
-                      console.log(photo);
-                    }}
+                    onChange={(e) => setimageLink(e.target.value)}
                     type="text"
+                    value={imageLink}
                     placeholder="url of image"
                     class="form-control block
         w-full
@@ -251,7 +320,7 @@ const CreatePost = () => {
           </div>
         </div>
       ) : (
-        "s"
+        <AllBooks />
       )}
     </>
   );

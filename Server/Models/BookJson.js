@@ -21,11 +21,11 @@ const JsonBookSchema = new mongoose.Schema(
     },
     country: {
       type: String,
-      required: true,
+      // required: true,
     },
     link: {
       type: String,
-      required: true,
+      // required: true,
       // unique: true,
     },
     imageLink: {
@@ -33,6 +33,10 @@ const JsonBookSchema = new mongoose.Schema(
       required: true,
     },
     language: {
+      type: String,
+      required: true,
+    },
+    quote: {
       type: String,
       required: true,
     },
